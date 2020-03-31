@@ -1,0 +1,27 @@
+[
+  {
+    "key": "row",
+    "child": [
+      {
+        "key": "col",
+        "option": {
+          "length": 9
+        },
+        "child": {
+          "key": "card",
+          "option": {
+            "variant": "primary"
+          },
+          "child": "$list"
+        }
+      },
+      {
+        "key": "col",
+        "option": {
+          "length": 9
+        },
+        "child": "halo"
+      }
+    ]
+  }
+]

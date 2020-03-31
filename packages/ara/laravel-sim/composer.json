@@ -1,0 +1,25 @@
+{
+    "name": "ara/laravel-sim",
+    "description": "Sim maker",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adeardo Dora Harnanda",
+            "email": "kucingkalenk@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ARA\\LaravelSim\\LaravelSimServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "ARA\\LaravelSim\\": "src/"
+        }
+    },
+    "require": {}
+}

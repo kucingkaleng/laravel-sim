@@ -12,9 +12,11 @@
   
   <div class="wrapper">
     
-    @include('components.navbar')
+    @includeFirst(['components.navbar', 'LaravelSim::components.navbar'])
 
-    @include('components.sidebar')
+    {{-- @includeFirst(['components.sidebar', 'LaravelSim::components.sidebar'], ['sidebar' => $shared->sidebar]) --}}
+
+    {{ (new ARA\LaravelSim\Utils\BuildMe)->sidebar($shared->sidebar) }}
 
     <div class="content-wrapper">
       <div class="content-header">

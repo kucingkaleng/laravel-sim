@@ -69,7 +69,7 @@ class BuildMe {
   /**
    * Get template view
    */
-  function getView () {
+  function getTemplate () {
     switch ($this->type) {
       case 'login':
         $this->view = 'login';
@@ -92,7 +92,7 @@ class BuildMe {
   public function buildNow () {
     $viewNamespace = 'LaravelSim';
 
-    $this->getView();
+    $this->getTemplate();
 
     // Static page
     if (empty($this->data)) {
@@ -104,10 +104,25 @@ class BuildMe {
       'shared' => (object) [
         'data' => $this->data,
         'dataHeader' => $this->dataHeader,
-        'layout' => $this->layout
+        'layout' => $this->layout,
+        'sidebar' => $this->getSidebarItems()
       ]
     ];
 
     return view($viewNamespace.'::'.$this->view, $data);
   }
+
+  private function getSidebarItems () {
+    $menus = json_decode(file_get_contents(__DIR__.'/Dummy/menu.json'));
+    return $menus;
+  }
+
+  public function sidebar ($items) {
+    return Getter::getView('components.sidebar', ['items' => $items]);
+  }
+
+  public function sidebarItems ($item) {
+    return Getter::getView('components.sidebarItems', ['item' => $item]);
+  }
+
 }

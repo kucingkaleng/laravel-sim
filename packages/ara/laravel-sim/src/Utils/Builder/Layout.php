@@ -1,17 +1,20 @@
 <?php
 
 namespace ARA\LaravelSim\Utils\Builder;
+use ARA\LaravelSim\Utils\Getter;
 
 class Layout {
   
+  // Json layout file
   protected $layout;
+
   protected $rendered;
   protected $shared;
 
   function __construct($layout) {
     $this->layout = $layout;
   }
-
+  
   /**
    * Render object layout
    */
@@ -30,7 +33,7 @@ class Layout {
 
     // If child is element key
     else if (substr($this->layout, 0, 1) == "$") {
-      $this->rendered[] = $this->elementValidate($this->layout);
+      $this->rendered[] = $this->componentValidate($this->layout);
     }
 
     else {
@@ -41,28 +44,42 @@ class Layout {
       echo $value;
     }
   }
-  
+
   /**
    * Validate object layout
    */
   protected function objectValidate ($object) {
-    if ($object->key == "row") {
-      return $this->execute('layouts.row', ['data' => $object, 'shared' => $this->shared]);
-    }
-    else if ($object->key == "col") {
-      return $this->execute('layouts.column', ['data' => $object, 'shared' => $this->shared]);
-    }
-    else if ($object->key == "card") {
-      return $this->execute('components.cards.card', ['data' => $object, 'shared' => $this->shared]);
+    switch ($object->key) {
+      // Row
+      case 'row':
+        return $this->getView('layouts.row', ['data' => $object, 'shared' => $this->shared]);
+        break;
+
+      // Column
+      case 'col':
+        return $this->getView('layouts.column', ['data' => $object, 'shared' => $this->shared]);
+        break;
+      
+      // Card
+      case 'card':
+        return $this->getView('components.cards.card', ['data' => $object, 'shared' => $this->shared]);
+      default:
+        # code...
+        break;
     }
   }
 
   /**
    * Validate element type
    */
-  protected function elementValidate ($key) {
-    if ($key == '$list') {
-      return $this->execute('components.tables.data-table', ['data' => $this->shared->data, 'dataHeader' => $this->shared->dataHeader]);
+  protected function componentValidate ($key) {
+    switch ($key) {
+      case '$list':
+        return $this->getView('components.tables.data-table', ['data' => $this->shared->data, 'dataHeader' => $this->shared->dataHeader]);
+        break;
+      default:
+        # code...
+        break;
     }
   }
 
@@ -74,8 +91,7 @@ class Layout {
     return $this;
   }
   
-  protected function execute ($page, $data)
-  {
-    return view('LaravelSim::'.$page, $data);
+  protected function getView ($page, $data) {
+    return view()->first(['ara.laravel-sim.'.$page, 'LaravelSim::'.$page], $data);
   }
 }

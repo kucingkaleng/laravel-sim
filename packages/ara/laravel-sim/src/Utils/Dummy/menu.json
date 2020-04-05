@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Dashboard",
+    "description": "Dashboard page",
+    "faIcon": "tachometer-alt",
+    "url": "#!",
+    "child": []
+  },
+  {
+    "title": "Models",
+    "description": "Models menu",
+    "faIcon": "cubes",
+    "url": "#!",
+    "child": [
+      {
+        "title": "Schemas",
+        "description": "Schema menu",
+        "faIcon": "file",
+        "url": "#!"
+      }
+    ]
+  }
+]

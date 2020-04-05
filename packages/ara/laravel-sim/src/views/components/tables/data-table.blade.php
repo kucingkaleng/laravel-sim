@@ -10,10 +10,9 @@
         $item = (object) $item
       @endphp
       <tr>
-        <td>{{ $item->item_name }}</td>
-        <td>{{ $item->category }}</td>
-        <td>{{ $item->price }}</td>
-        <td>{{ $item->qty }}</td>
+        @foreach ($item as $i)
+        <td>{{ $i }}</td>
+        @endforeach
       </tr>
     @endforeach
   </tbody>
